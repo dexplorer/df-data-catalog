@@ -1,0 +1,56 @@
+[build-system]
+requires = ["setuptools >= 64.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dc_app"
+version = "0.0.1"
+authors = [
+  { name="Rajakumaran Arivumani", email="author@example.com" },
+]
+description = "Data catalog app package"
+readme = "README.md"
+requires-python = ">=3.12"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+#license = "MIT"
+#license-files = ["LICEN[CS]E*"]
+dependencies = [
+  # app specific 
+  # my packages
+  "utils @ git+https://github.com/dexplorer/utils",
+  "metadata @ git+https://github.com/dexplorer/df-metadata",
+  "app_calendar @ git+https://github.com/dexplorer/df-app-calendar",
+  "config @ git+https://github.com/dexplorer/df-config",
+]
+keywords = ["data", "catalog", "etl", "elt", "framework", "governance"]
+
+[project.optional-dependencies]
+api = [
+  "fastapi" , 
+  "uvicorn[standard]", 
+  ]
+cli = [
+  "click",
+]
+test = [
+  # standard dev tools
+  "pytest",
+  "pytest-cov",
+  "pylint",
+  "black",
+  "ipython",
+]
+
+[project.scripts]
+dc-app-cli = "dc_app.dc_app_cli:main"
+dc-app-api = "dc_app.dc_app_api:main"
+
+[project.urls]
+Homepage = "https://profile.rajakumaran.in"
+Documentation = "https://readthedocs.org"
+Repository = "https://github.com/dexplorer/df-data-catalog.git"
+Issues = "https://github.com/dexplorer/df-data-catalog/issues"
+Changelog = "https://github.com/dexplorer/df-data-catalog/blob/master/CHANGELOG.md"
