@@ -38,6 +38,9 @@ class Asset:
     asset_name: str
     asset_domain: str
     asset_data_elements: list[AssetDataElement]
+    business_owners: list[str]
+    technology_owners: list[str]
+    data_stewards: list[str]
 
     def __init__(
         self,
@@ -45,7 +48,10 @@ class Asset:
         asset_type: AssetType,
         asset_name: str,
         asset_domain: str,
-        asset_data_elements: list[AssetDataElement] | list[dict]
+        asset_data_elements: list[AssetDataElement] | list[dict],
+        business_owners: list[str], 
+        technology_owners: list[str], 
+        data_stewards: list[str]
     ):
         self.asset_id = asset_id
         self.asset_type = asset_type
@@ -60,3 +66,6 @@ class Asset:
             ]
         else:
             self.asset_data_elements = asset_data_elements
+        self.business_owners = business_owners
+        self.technology_owners = technology_owners
+        self.data_stewards = data_stewards

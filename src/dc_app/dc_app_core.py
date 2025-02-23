@@ -1,4 +1,5 @@
 from metadata import dataset as ds
+from metadata import dataset_asset as da
 from metadata import dataset_dictionary as dd
 from metadata import system_glossary as sg
 from metadata import business_glossary as bg
@@ -16,6 +17,10 @@ def catalog_dataset(dataset_id: str, cycle_date: str) -> list:
     # Simulate getting the dataset metadata from API
     logging.info("Reading the dataset metadata for dataset %s", dataset_id)
     dataset = ds.get_dataset_from_json(dataset_id=dataset_id)
+
+    # Simulate getting the dataset asset metadata from API
+    logging.info("Reading the dataset asset metadata for dataset %s", dataset_id)
+    dataset_asset = da.DatasetAsset.from_json(dataset_id=dataset_id)
 
     # Simulate getting the dataset dictionary metadata from API
     logging.info("Reading the dataset dictionary metadata for dataset %s", dataset_id)
@@ -91,9 +96,12 @@ def catalog_dataset(dataset_id: str, cycle_date: str) -> list:
     dc_asset = mm.Asset(
         asset_id=dataset_id.replace("dataset", "asset"),
         asset_type=dataset.dataset_type,
-        asset_name=dataset.catalog_asset_name,
-        asset_domain=dataset.catalog_asset_domain,
+        asset_name=dataset_asset.catalog_asset_name,
+        asset_domain=dataset_asset.catalog_asset_domain,
         asset_data_elements=asset_data_elements,
+        business_owners=dataset_asset.business_owners,
+        technology_owners=dataset_asset.technology_owners,
+        data_stewards=dataset_asset.data_stewards,
     )
     print(dc_asset)
     return dc_asset

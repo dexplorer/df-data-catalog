@@ -56,16 +56,25 @@ These are metadata that would be captured via the Metadata Management UI and sto
     {
       "dataset_id": "dataset_3",
       "dataset_type": "local delim file",
-      "catalog_ind": true,
       "file_delim": ",",
       "file_path": "APP_DATA_IN_DIR/customers_yyyymmdd.csv",
       "schedule_id": "schedule_2",
       "recon_file_delim": "|",
       "recon_file_path": "APP_DATA_IN_DIR/customers_yyyymmdd.recon",
-      "catalog_asset_name": "Customer",
-      "catalog_asset_domain": "Asset Management"
     }
   ]
+}
+```
+
+  ##### Dataset Assets
+```
+{
+  "dataset_id": "dataset_3",
+  "catalog_asset_name": "Customer",
+  "catalog_asset_domain": "Asset Management",
+  "business_owners": ["Rajakumaran Arivumani"], 
+  "technology_owners": ["Rajakumaran Arivumani"], 
+  "data_stewards": ["Rajakumaran Arivumani"] 
 }
 ```
 
@@ -381,6 +390,15 @@ These are metadata that would be captured via the Metadata Management UI and sto
         "business_data_element_name": "Customer Home Address - Country",
         "data_classification": "OPEN"
       }
+    ],
+    "business_owners": [
+      "Rajakumaran Arivumani"
+    ],
+    "technology_owners": [
+      "Rajakumaran Arivumani"
+    ],
+    "data_stewards": [
+      "Rajakumaran Arivumani"
     ]
   }
 }
