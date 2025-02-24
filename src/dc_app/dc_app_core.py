@@ -5,10 +5,14 @@ from metadata import system_glossary as sg
 from metadata import business_glossary as bg
 from app_calendar import eff_date as ed
 from dc_app.model import models as mm
+from utils import json_io as ufj
+
 import logging
 
 
-def catalog_dataset(dataset_id: str, cycle_date: str) -> list:
+def catalog_dataset(
+    dataset_id: str, cycle_date: str, asset_data_file_path: str
+) -> list:
     # Simulate getting the cycle date from API
     # Run this from the parent app
     if not cycle_date:
@@ -103,7 +107,14 @@ def catalog_dataset(dataset_id: str, cycle_date: str) -> list:
         technology_owners=dataset_asset.technology_owners,
         data_stewards=dataset_asset.data_stewards,
     )
-    print(dc_asset)
+
+    logging.info("Writing the asset definition to file %s.", asset_data_file_path)
+    write_assets(
+        assets=[dc_asset],
+        asset_data_file_path=asset_data_file_path,
+    )
+
+    # print(dc_asset)
     return dc_asset
 
 
@@ -123,3 +134,9 @@ def lkp_bus_glossary(
         if item.business_data_element_name == business_data_element_name:
             return item
     return None
+
+
+def write_assets(assets: list, asset_data_file_path: str):
+    ufj.uf_write_list_of_data_cls_obj_to_json_file(
+        obj_list=assets, file_path=asset_data_file_path
+    )

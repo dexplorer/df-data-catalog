@@ -7,6 +7,7 @@ install: pyproject.toml
 	
 lint:
 	pylint --disable=R,C src/dc_app/*.py &&\
+	pylint --disable=R,C src/dc_app/*/*.py &&\
 	pylint --disable=R,C tests/*.py
 
 test:
@@ -14,6 +15,7 @@ test:
 
 format:
 	black src/dc_app/*.py &&\
+	black src/dc_app/*/*.py &&\
 	black tests/*.py
 
 all:

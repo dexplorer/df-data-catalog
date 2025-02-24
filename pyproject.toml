@@ -18,12 +18,19 @@ classifiers = [
 #license = "MIT"
 #license-files = ["LICEN[CS]E*"]
 dependencies = [
-  # app specific 
+  # app specific", 
+  "langchain_text_splitters", 
+  "langchain[chains]", 
+  "langchain[hub]", 
+  "langchain_openai", 
+  "langchain_community[vectorstores]", 
+  "langchain_community[document_loaders]", 
+  "lancedb", 
   # my packages
-  "utils @ git+https://github.com/dexplorer/utils",
+  #"utils @ git+https://github.com/dexplorer/utils",
   "metadata @ git+https://github.com/dexplorer/df-metadata",
   "app_calendar @ git+https://github.com/dexplorer/df-app-calendar",
-  "config @ git+https://github.com/dexplorer/df-config",
+  #"config @ git+https://github.com/dexplorer/df-config",
 ]
 keywords = ["data", "catalog", "etl", "elt", "framework", "governance"]
 

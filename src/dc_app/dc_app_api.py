@@ -45,7 +45,12 @@ async def catalog_dataset(dataset_id: str, cycle_date: str = ""):
     """
 
     logging.info("Start creating the catalog asset for the dataset %s", dataset_id)
-    dc_asset = dcc.catalog_dataset(dataset_id=dataset_id, cycle_date=cycle_date)
+    asset_data_file_path = f"{sc.data_out_file_path}/asset_{dataset_id}.json"
+    dc_asset = dcc.catalog_dataset(
+        dataset_id=dataset_id,
+        cycle_date=cycle_date,
+        asset_data_file_path=asset_data_file_path,
+    )
     logging.info("Finished creating the catalog asset for the dataset %s", dataset_id)
 
     return {"results": dc_asset}
