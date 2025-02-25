@@ -1,13 +1,15 @@
 import logging
 import os
+
 # from dotenv import load_dotenv
 import click
 from dotenv import load_dotenv
 from config.settings import ConfigParms as sc
 from config import settings as scg
 from dc_app import dc_app_core as dcc
-from dc_app.discover import query as dcdq 
+from dc_app.discover import query as dcdq
 from utils import logger as ufl
+from utils import json_io as ufj
 
 #
 APP_ROOT_DIR = "/workspaces/df-data-catalog"
@@ -33,7 +35,7 @@ def cli():
 @click.option("--cycle_date", type=str, default="", help="Cycle date")
 def catalog_dataset(dataset_id: str, env: str, cycle_date: str):
     """
-    Profile the dataset.
+    Create catalog asset the dataset.
     """
 
     scg.APP_ROOT_DIR = APP_ROOT_DIR
@@ -55,9 +57,26 @@ def catalog_dataset(dataset_id: str, env: str, cycle_date: str):
     logging.info("Catalog asset for dataset %s", dataset_id)
     logging.info(dc_asset)
 
+    all_assets_data_file_path = f"{sc.data_out_file_path}/assets.json"
+    ufj.uf_merge_json_files(
+        in_file_dir_path=sc.data_out_file_path,
+        out_file=all_assets_data_file_path,
+        in_file_pattern="asset_*",
+    )
+
     logging.info("Finished creating the catalog asset for the dataset %s", dataset_id)
 
-    dcdq.query_catalog()
+
+@cli.command()
+def query_catalog():
+    """
+    Query catalog.
+    """
+
+    dcdq.query_catalog(
+        all_assets_data_file_path="/workspaces/df-data-catalog/data/out/assets.json"
+    )
+
 
 def main():
     cli()

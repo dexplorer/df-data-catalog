@@ -110,7 +110,7 @@ def catalog_dataset(
 
     logging.info("Writing the asset definition to file %s.", asset_data_file_path)
     write_assets(
-        assets=[dc_asset],
+        asset=dc_asset,
         asset_data_file_path=asset_data_file_path,
     )
 
@@ -136,7 +136,5 @@ def lkp_bus_glossary(
     return None
 
 
-def write_assets(assets: list, asset_data_file_path: str):
-    ufj.uf_write_list_of_data_cls_obj_to_json_file(
-        obj_list=assets, file_path=asset_data_file_path
-    )
+def write_assets(asset, asset_data_file_path: str):
+    ufj.uf_write_data_cls_obj_to_json_file(obj=asset, file_path=asset_data_file_path)

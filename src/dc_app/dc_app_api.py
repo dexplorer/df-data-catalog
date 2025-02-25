@@ -34,7 +34,7 @@ async def root():
 @app.get("/catalog-dataset/")
 async def catalog_dataset(dataset_id: str, cycle_date: str = ""):
     """
-    Catalog the dataset.
+    Create catalog asset for the dataset.
 
     Args:
         dataset_id: Id of the dataset.
