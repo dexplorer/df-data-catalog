@@ -42,6 +42,7 @@ def catalog_dataset(
     for column in dataset_dict.column_attributes:
         logging.info("Working on column %s", column.column_name)
         physical_data_element_name = column.column_name
+        physical_data_element_desc = column.column_description
         try:
             system_data_element_name = column.system_data_element_name
             if system_data_element_name:
@@ -83,6 +84,7 @@ def catalog_dataset(
 
             asset_data_element = mm.AssetDataElement(
                 physical_data_element_name=physical_data_element_name,
+                physical_data_element_desc=physical_data_element_desc,
                 system_data_element_name=system_data_element_name,
                 business_data_element_name=business_data_element_name,
                 data_classification=data_classification,
@@ -102,7 +104,9 @@ def catalog_dataset(
         asset_type=dataset.dataset_type,
         asset_name=dataset_asset.catalog_asset_name,
         asset_domain=dataset_asset.catalog_asset_domain,
+        asset_description=dataset_dict.dataset_description,
         asset_data_elements=asset_data_elements,
+        asset_physical_name=dataset.get_physical_name(),
         business_owners=dataset_asset.business_owners,
         technology_owners=dataset_asset.technology_owners,
         data_stewards=dataset_asset.data_stewards,

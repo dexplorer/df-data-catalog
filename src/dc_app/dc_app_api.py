@@ -5,7 +5,9 @@ import logging
 from config.settings import ConfigParms as sc
 from config import settings as scg
 from dc_app import dc_app_core as dcc
+from dc_app.discover import query as dcdq
 from utils import logger as ufl
+from utils import json_io as ufj
 
 from fastapi import FastAPI
 import uvicorn
@@ -51,9 +53,38 @@ async def catalog_dataset(dataset_id: str, cycle_date: str = ""):
         cycle_date=cycle_date,
         asset_data_file_path=asset_data_file_path,
     )
+
+    all_assets_data_file_path = f"{sc.data_out_file_path}/assets.json"
+    ufj.uf_merge_json_files(
+        in_file_dir_path=sc.data_out_file_path,
+        out_file=all_assets_data_file_path,
+        in_file_pattern="asset_*",
+    )
+
     logging.info("Finished creating the catalog asset for the dataset %s", dataset_id)
 
     return {"results": dc_asset}
+
+
+@app.get("/query-catalog/")
+async def query_catalog():
+    """
+    Query catalog.
+
+    Args:
+        none
+
+    Returns:
+        Physical asset and data element names.
+    """
+
+    logging.info("Start querying the catalog")
+    response = dcdq.query_catalog(
+        all_assets_data_file_path="/workspaces/df-data-catalog/data/out/assets.json"
+    )
+    logging.info("Finished querying the catalog")
+
+    return {"response": response}
 
 
 def main():

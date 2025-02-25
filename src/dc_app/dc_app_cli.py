@@ -12,13 +12,13 @@ from utils import logger as ufl
 from utils import json_io as ufj
 
 #
-APP_ROOT_DIR = "/workspaces/df-data-catalog"
+# APP_ROOT_DIR = "/workspaces/df-data-catalog"
 
 # Load the environment variables from .env file
 load_dotenv()
 logging.info(os.environ)
 # Fail if APP_ROOT_DIR env variable is not set
-# APP_ROOT_DIR = os.environ["APP_ROOT_DIR"]
+APP_ROOT_DIR = os.environ["APP_ROOT_DIR"]
 
 
 # Create command group
@@ -73,9 +73,10 @@ def query_catalog():
     Query catalog.
     """
 
-    dcdq.query_catalog(
+    response = dcdq.query_catalog(
         all_assets_data_file_path="/workspaces/df-data-catalog/data/out/assets.json"
     )
+    print(response)
 
 
 def main():

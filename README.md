@@ -19,6 +19,11 @@
     dc-app-cli catalog-dataset --dataset_id "dataset_3" --env "dev" --cycle_date "2024-12-26"
   ```
 
+- **Query the Catalog**:
+  ```sh
+    dc-app-cli query-catalog
+  ```
+
 - **Catalog a dataset via API**:
   ##### Start the API server
   ```sh
@@ -36,6 +41,11 @@
   ```sh
     https://<host name with port number>/docs
 
+  ```
+
+- **Query the Catalog**:
+  ```sh
+    /query-catalog
   ```
 
 ### Sample Input (customers_20241226.csv)
@@ -402,5 +412,34 @@ These are metadata that would be captured via the Metadata Management UI and sto
     ]
   }
 }
+
+```
+
+## Query Catalog
+
+### Sample Input 
+
+The following text is provided as the prompt to the LLM application.
+
+```
+"question": """
+List the data elements to get the AUM value in USD for customers residing in the state of CA. 
+For each data element, provide data element names in the format:
+asset_physical_name -> physical_data_element_name
+Examples:
+APP_DATA_IN_DIR/assets_yyyymmdd.csv -> asset_name
+"""
+```
+
+### Sample Output 
+
+The following text is received as the response from the LLM application.
+
+```
+To get the AUM value in USD for customers residing in the state of CA, the following data elements are needed:
+
+1. APP_DATA_IN_DIR/customers_yyyymmdd.csv -> state
+2. APP_DATA_IN_DIR/acct_positions_yyyymmdd.csv -> asset_value
+3. APP_DATA_IN_DIR/acct_positions_yyyymmdd.csv -> effective_date
 
 ```

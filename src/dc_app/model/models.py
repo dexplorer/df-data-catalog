@@ -30,6 +30,7 @@ class AssetDataClassTypeFlag(Flag):
 @dataclass
 class AssetDataElement:
     physical_data_element_name: str
+    physical_data_element_desc: str
     system_data_element_name: str
     business_data_element_name: str
     data_classification: AssetDataClassType
@@ -41,7 +42,9 @@ class Asset:
     asset_type: AssetType
     asset_name: str
     asset_domain: str
+    asset_description: str
     asset_data_elements: list[AssetDataElement]
+    asset_physical_name: str
     business_owners: list[str]
     technology_owners: list[str]
     data_stewards: list[str]
@@ -52,7 +55,9 @@ class Asset:
         asset_type: AssetType,
         asset_name: str,
         asset_domain: str,
+        asset_description: str,
         asset_data_elements: list[AssetDataElement] | list[dict],
+        asset_physical_name: str,
         business_owners: list[str],
         technology_owners: list[str],
         data_stewards: list[str],
@@ -61,6 +66,7 @@ class Asset:
         self.asset_type = asset_type
         self.asset_name = asset_name
         self.asset_domain = asset_domain
+        self.asset_description = asset_description
         if isinstance(asset_data_elements, list) and all(
             isinstance(asset_data_element, dict)
             for asset_data_element in asset_data_elements
@@ -71,6 +77,7 @@ class Asset:
             ]
         else:
             self.asset_data_elements = asset_data_elements
+        self.asset_physical_name = asset_physical_name
         self.business_owners = business_owners
         self.technology_owners = technology_owners
         self.data_stewards = data_stewards

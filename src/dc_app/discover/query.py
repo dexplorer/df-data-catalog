@@ -21,7 +21,7 @@ class State(TypedDict):
     answer: str
 
 
-# Define state for application
+# Define application
 class LLMApp:
     llm: Any
     embeddings: Any
@@ -32,8 +32,11 @@ class LLMApp:
         if not os.environ.get("OPENAI_API_KEY"):
             os.environ["OPENAI_API_KEY"] = getpass.getpass("Enter API key for OpenAI: ")
 
+        # Init LLM chat model
         self.llm = init_chat_model(model=chat_model, model_provider=model_provider)
+        # Get embeddings
         self.embeddings = OpenAIEmbeddings(model=embedding_model)
+        # Define vector store
         self.vector_store = InMemoryVectorStore(self.embeddings)
         # Define prompt for question-answering
         self.prompt = hub.pull("rlm/rag-prompt")
@@ -88,15 +91,16 @@ def query_catalog(all_assets_data_file_path: str):
     response = graph.invoke(
         {
             "question": """
-            List the data elements needed to get the asset value for customers residing in the state of CA. 
-            For each data element, list the physical data element names in the format:
-            asset name -> physical data element name
+            List the data elements to get the AUM value in USD for customers residing in the state of CA. 
+            For each data element, provide data element names in the format:
+            asset_physical_name -> physical_data_element_name
             Examples:
-            Customer -> state
+            APP_DATA_IN_DIR/assets_yyyymmdd.csv -> asset_name
             """
         }
     )
-    print(response["answer"])
+    # print(response["answer"])
+    return response["answer"]
 
 
 def read_json_file(file_path: str):
