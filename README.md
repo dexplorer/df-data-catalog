@@ -1,4 +1,22 @@
 # df-data-catalog
+This application creates asset definitions for the datasets that will be published to the data catalog. The catalog can be queried (e.g. for datasets, data elements) using the OpenAI GPT LLM model. The data dictionary, system and business glossaries are used for the RAG context.
+
+Application can be invoked using CLI or REST API end points. This allows the app to be integrated into a larger data ingestion / distribution framework.
+
+### Define the environment variables
+
+Create a .env file with the following variables.
+
+```
+ENV=dev
+APP_ROOT_DIR=
+OPENAI_API_KEY=
+LANGSMITH_TRACING=false
+LANGSMITH_ENDPOINT="https://api.smith.langchain.com"
+LANGSMITH_API_KEY=
+LANGSMITH_PROJECT="df-data-catalog"
+
+```
 
 ### Install
 
@@ -11,12 +29,12 @@
 
 - **Catalog a dataset via CLI**:
   ```sh
-    dc-app-cli catalog-dataset --dataset_id "dataset_3" --env "dev"
+    dc-app-cli catalog-dataset --dataset_id "dataset_3"
   ```
 
 - **Catalog a dataset via CLI with cycle date override**:
   ```sh
-    dc-app-cli catalog-dataset --dataset_id "dataset_3" --env "dev" --cycle_date "2024-12-26"
+    dc-app-cli catalog-dataset --dataset_id "dataset_3" --cycle_date "2024-12-26"
   ```
 
 - **Query the Catalog**:
@@ -27,7 +45,7 @@
 - **Catalog a dataset via API**:
   ##### Start the API server
   ```sh
-    dc-app-api --env "dev"
+    dc-app-api 
   ```
   ##### Invoke the API endpoint
   ```sh

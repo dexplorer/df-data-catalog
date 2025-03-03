@@ -5,20 +5,10 @@ import os
 import click
 from dotenv import load_dotenv
 from config.settings import ConfigParms as sc
-from config import settings as scg
 from dc_app import dc_app_core as dcc
 from dc_app.discover import query as dcdq
 from utils import logger as ufl
 from utils import json_io as ufj
-
-#
-# APP_ROOT_DIR = "/workspaces/df-data-catalog"
-
-# Load the environment variables from .env file
-load_dotenv()
-logging.info(os.environ)
-# Fail if APP_ROOT_DIR env variable is not set
-APP_ROOT_DIR = os.environ["APP_ROOT_DIR"]
 
 
 # Create command group
@@ -31,15 +21,14 @@ def cli():
 @click.option(
     "--dataset_id", type=str, default="dev", help="Source dataset id", required=True
 )
-@click.option("--env", type=str, default="dev", help="Environment")
 @click.option("--cycle_date", type=str, default="", help="Cycle date")
-def catalog_dataset(dataset_id: str, env: str, cycle_date: str):
+def catalog_dataset(dataset_id: str, cycle_date: str):
     """
     Create catalog asset the dataset.
     """
 
-    scg.APP_ROOT_DIR = APP_ROOT_DIR
-    sc.load_config(env=env)
+    # scg.APP_ROOT_DIR = APP_ROOT_DIR
+    # sc.load_config(env=env)
 
     script_name = os.path.splitext(os.path.basename(__file__))[0]
     ufl.config_logger(log_file_path_name=f"{sc.log_file_path}/{script_name}.log")
@@ -80,6 +69,20 @@ def query_catalog():
 
 
 def main():
+    # Load the environment variables from .env file
+    load_dotenv()
+    logging.info(os.environ)
+
+    # Fail if env variable is not set
+    sc.env = os.environ["ENV"]
+    sc.app_root_dir = os.environ["APP_ROOT_DIR"]
+    sc.load_config()
+
+    script_name = os.path.splitext(os.path.basename(__file__))[0]
+    ufl.config_logger(log_file_path_name=f"{sc.log_file_path}/{script_name}.log")
+    logging.info("Configs are set")
+    logging.info(os.environ)
+
     cli()
 
 
