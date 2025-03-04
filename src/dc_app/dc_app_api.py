@@ -85,7 +85,6 @@ async def query_catalog():
 def main():
     # Load the environment variables from .env file
     load_dotenv()
-    logging.info(os.environ)
 
     # Fail if env variable is not set
     sc.env = os.environ["ENV"]
@@ -95,6 +94,8 @@ def main():
     script_name = os.path.splitext(os.path.basename(__file__))[0]
     ufl.config_logger(log_file_path_name=f"{sc.log_file_path}/{script_name}.log")
     logging.info("Configs are set")
+    logging.info(os.environ)
+    logging.info(sc.config)
 
     logging.info("Starting the API service")
 

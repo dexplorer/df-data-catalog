@@ -27,14 +27,6 @@ def catalog_dataset(dataset_id: str, cycle_date: str):
     Create catalog asset the dataset.
     """
 
-    # scg.APP_ROOT_DIR = APP_ROOT_DIR
-    # sc.load_config(env=env)
-
-    script_name = os.path.splitext(os.path.basename(__file__))[0]
-    ufl.config_logger(log_file_path_name=f"{sc.log_file_path}/{script_name}.log")
-    logging.info("Configs are set")
-    logging.info(os.environ)
-
     logging.info("Start creating the catalog asset for the dataset %s", dataset_id)
     asset_data_file_path = f"{sc.data_out_file_path}/asset_{dataset_id}.json"
     dc_asset = dcc.catalog_dataset(
@@ -71,7 +63,6 @@ def query_catalog():
 def main():
     # Load the environment variables from .env file
     load_dotenv()
-    logging.info(os.environ)
 
     # Fail if env variable is not set
     sc.env = os.environ["ENV"]
@@ -82,6 +73,7 @@ def main():
     ufl.config_logger(log_file_path_name=f"{sc.log_file_path}/{script_name}.log")
     logging.info("Configs are set")
     logging.info(os.environ)
+    logging.info(sc.config)
 
     cli()
 
