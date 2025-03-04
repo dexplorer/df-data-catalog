@@ -15,7 +15,6 @@ LANGSMITH_TRACING=false
 LANGSMITH_ENDPOINT="https://api.smith.langchain.com"
 LANGSMITH_API_KEY=
 LANGSMITH_PROJECT="df-data-catalog"
-
 ```
 
 ### Install
