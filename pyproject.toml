@@ -28,6 +28,7 @@ dependencies = [
   "langchain_community[document_loaders]", 
   "lancedb", 
   "langgraph",
+  "python-dotenv", 
   # my packages
   #"utils @ git+https://github.com/dexplorer/utils",
   #"metadata @ git+https://github.com/dexplorer/df-metadata",
