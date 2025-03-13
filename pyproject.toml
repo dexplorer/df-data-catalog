@@ -30,6 +30,11 @@ dependencies = [
   "langgraph",
   "python-dotenv", 
   # my packages
+  "utils",
+  "metadata",
+  "app_calendar",
+  "config",
+  # my packages
   #"utils @ git+https://github.com/dexplorer/utils",
   #"metadata @ git+https://github.com/dexplorer/df-metadata",
   #"app_calendar @ git+https://github.com/dexplorer/df-app-calendar",

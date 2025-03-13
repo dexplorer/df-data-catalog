@@ -9,7 +9,8 @@ Create a .env file with the following variables.
 
 ```
 ENV=dev
-APP_ROOT_DIR=
+APP_ROOT_DIR=/workspaces/df-data-catalog
+NAS_ROOT_DIR=/workspaces
 OPENAI_API_KEY=
 LANGSMITH_TRACING=false
 LANGSMITH_ENDPOINT="https://api.smith.langchain.com"
