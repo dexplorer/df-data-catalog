@@ -28,7 +28,7 @@ def catalog_dataset(dataset_id: str, cycle_date: str):
     """
 
     logging.info("Start creating the catalog asset for the dataset %s", dataset_id)
-    asset_data_file_path = f"{sc.data_out_file_path}/asset_{dataset_id}.json"
+    asset_data_file_path = f"{sc.app_data_out_dir}/asset_{dataset_id}.json"
     dc_asset = dcc.catalog_dataset(
         dataset_id=dataset_id,
         cycle_date=cycle_date,
@@ -38,9 +38,9 @@ def catalog_dataset(dataset_id: str, cycle_date: str):
     logging.info("Catalog asset for dataset %s", dataset_id)
     logging.info(dc_asset)
 
-    all_assets_data_file_path = f"{sc.data_out_file_path}/assets.json"
+    all_assets_data_file_path = f"{sc.app_data_out_dir}/assets.json"
     ufj.uf_merge_json_files(
-        in_file_dir_path=sc.data_out_file_path,
+        in_file_dir_path=sc.app_data_out_dir,
         out_file=all_assets_data_file_path,
         in_file_pattern="asset_*",
     )
@@ -65,12 +65,10 @@ def main():
     load_dotenv()
 
     # Fail if env variable is not set
-    sc.env = os.environ["ENV"]
-    sc.app_root_dir = os.environ["APP_ROOT_DIR"]
     sc.load_config()
 
     script_name = os.path.splitext(os.path.basename(__file__))[0]
-    ufl.config_logger(log_file_path_name=f"{sc.log_file_path}/{script_name}.log")
+    ufl.config_logger(log_file_path_name=f"{sc.app_log_dir}/{script_name}.log")
     logging.info("Configs are set")
     logging.info(os.environ)
     logging.info(sc.config)
