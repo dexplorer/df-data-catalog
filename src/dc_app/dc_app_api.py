@@ -42,16 +42,16 @@ async def catalog_dataset(dataset_id: str, cycle_date: str = ""):
     """
 
     logging.info("Start creating the catalog asset for the dataset %s", dataset_id)
-    asset_data_file_path = f"{sc.app_data_out_dir}/asset_{dataset_id}.json"
+    asset_data_file_path = f"{sc.app_data_out_path}/asset_{dataset_id}.json"
     dc_asset = dcc.catalog_dataset(
         dataset_id=dataset_id,
         cycle_date=cycle_date,
         asset_data_file_path=asset_data_file_path,
     )
 
-    all_assets_data_file_path = f"{sc.app_data_out_dir}/assets.json"
+    all_assets_data_file_path = f"{sc.app_data_out_path}/assets.json"
     ufj.uf_merge_json_files(
-        in_file_dir_path=sc.app_data_out_dir,
+        in_file_dir_path=sc.app_data_out_path,
         out_file=all_assets_data_file_path,
         in_file_pattern="asset_*",
     )
@@ -90,7 +90,7 @@ def main():
     sc.load_config()
 
     script_name = os.path.splitext(os.path.basename(__file__))[0]
-    ufl.config_logger(log_file_path_name=f"{sc.app_log_dir}/{script_name}.log")
+    ufl.config_logger(log_file_path_name=f"{sc.app_log_path}/{script_name}.log")
     logging.info("Configs are set")
     logging.info(os.environ)
     logging.info(sc.config)

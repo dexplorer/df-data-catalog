@@ -8,7 +8,7 @@ Application can be invoked using CLI or REST API end points. This allows the app
 Create a .env file with the following variables.
 
 ```
-ENV=dev
+APP_ENV=dev
 APP_ROOT_DIR=/workspaces/df-data-catalog
 NAS_ROOT_DIR=/workspaces/nas
 OPENAI_API_KEY=
